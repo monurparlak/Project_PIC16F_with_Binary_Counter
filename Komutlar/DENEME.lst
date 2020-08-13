@@ -1,0 +1,133 @@
+CCS PCM C Compiler, Version 5.045, 5967               29-May-20 02:47
+
+               Filename:   C:\Users\Harun\Desktop\SÝÝLL\DENEME.lst
+
+               ROM used:   63 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01B
+0003:  NOP
+.................... #include <DENEME.h> 
+.................... #include <16F877A.h> 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=10 
+.................... #use delay(crystal=4000000) 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  01
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  4A
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  BCF    0A.3
+0019:  BCF    0A.4
+001A:  GOTO   035 (RETURN)
+....................  
+....................  
+.................... #use fast_io(d) 
+.................... #use fast_io(b) 
+.................... #define button pin_D0 
+.................... //Okul numaram 54 
+.................... int i=108; 
+.................... void main() 
+001B:  MOVF   03,W
+001C:  ANDLW  1F
+001D:  MOVWF  03
+001E:  MOVLW  6C
+001F:  MOVWF  20
+0020:  BSF    03.5
+0021:  BSF    1F.0
+0022:  BSF    1F.1
+0023:  BSF    1F.2
+0024:  BCF    1F.3
+0025:  MOVLW  07
+0026:  MOVWF  1C
+0027:  BCF    03.7
+.................... { 
+....................  set_tris_d(0x01); 
+0028:  MOVLW  01
+0029:  MOVWF  08
+....................    set_tris_b(0x00); 
+002A:  MOVLW  00
+002B:  MOVWF  06
+....................     
+....................    output_b(0x00); 
+002C:  BCF    03.5
+002D:  CLRF   06
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       if(input(button)) 
+002E:  BTFSS  08.0
+002F:  GOTO   03D
+....................          { 
+....................             output_b(i); 
+0030:  MOVF   20,W
+0031:  MOVWF  06
+....................             delay_ms(15); 
+0032:  MOVLW  0F
+0033:  MOVWF  21
+0034:  GOTO   004
+....................             i=i-1; 
+0035:  MOVLW  01
+0036:  SUBWF  20,F
+....................              
+....................             while (input(button)); 
+0037:  BTFSC  08.0
+0038:  GOTO   037
+....................              
+....................             if(i==10) 
+0039:  MOVF   20,W
+003A:  SUBLW  0A
+003B:  BTFSC  03.2
+....................             { 
+....................                i=0; 
+003C:  CLRF   20
+....................             } 
+....................          } 
+003D:  GOTO   02E
+....................    } 
+....................  
+.................... } 
+....................  
+003E:  SLEEP
+....................  
+....................  
+....................  
+....................  
+
+Configuration Fuses:
+   Word  1: 2F41   XT NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
